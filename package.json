@@ -2,21 +2,49 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "@types/jest": "24.0.13",
     "@types/node": "12.0.2",
     "@types/react": "16.8.18",
     "@types/react-dom": "16.8.4",
+    "electron-is-dev": "^1.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "typescript": "3.4.5"
   },
+  "author": {
+    "name": "Rajsek",
+    "email": "rajisekar.d@gmail.com",
+    "url": "https://medium.com/@rajsek"
+  },
+  "build": {
+    "appId": "com.build.electron-app",
+    "productName": "MyApp",
+    "copyright": "Copyright © 2019 ${author}",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
+  "main": "public/Main.ts",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test",
+    "eject": "react-scripts eject",
+    "postinstall": "electron-builder install-app-deps",
+    "preelectron-pack": "yarn build",
+    "electron-start": "electron .",
+    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pack": "build -mw"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,5 +60,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@rescripts/cli": "^0.0.10",
+    "@rescripts/rescript-env": "^0.0.10",
+    "concurrently": "^4.1.0",
+    "electron": "^5.0.2",
+    "electron-builder": "^20.41.0",
+    "wait-on": "^3.2.0"
   }
 }
